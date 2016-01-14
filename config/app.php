@@ -1,5 +1,5 @@
 <?php
-
+ini_set('xdebug.max_nesting_level', 500);//Utilizado para los @include
 return [
 
     /*
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------

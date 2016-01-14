@@ -26,13 +26,18 @@ Route::get('/', function () {
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
-});
-
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
-    Route::get('/home', 'HomeController@index');
+    Route::resource('compra', 'ComprasController');
+
     Route::resource('insumo', 'InsumosController');
+    Route::resource('raza', 'RazaController');
+    Route::resource('tipo-insumo', 'TipoInsumoController');
+    Route::resource('tipo-raza', 'TipoRazaController');
+    Route::resource('unidad', 'UnidadesController');
+    Route::resource('proveedor', 'ProveedorController');
+
+    Route::controller('buscar', 'BuscarController');
+    Route::get('/home', 'HomeController@index');
 });

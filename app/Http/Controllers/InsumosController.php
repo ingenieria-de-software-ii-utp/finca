@@ -37,6 +37,17 @@ class InsumosController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'nombre' => 'required',
+            'costo' => 'required',
+            'precio' => 'required',
+            'id_tipo' => ['required', 'not_in:0'],
+            'id_unidad' => ['required', 'not_in:0'],
+            'expiracion' => 'required'
+        ];
+        //Valida los datos, si todo esta bien continua, sino retorna a la vista anterior con los errores
+        $this->validate($request, $rules);
+
         //Asigna todo los datos a $data
         $data = $request->all();
 
@@ -45,8 +56,8 @@ class InsumosController extends Controller
         $insumo->descripcion = $data['descripcion'];
         $insumo->costo = $data['costo'];
         $insumo->precio = $data['precio'];
-        $insumo->id_tipo = $data['tipo'];
-        $insumo->id_unidad = $data['unidad'];
+        $insumo->id_tipo = $data['id_tipo'];
+        $insumo->id_unidad = $data['id_unidad'];
         $insumo->expiracion = $data['expiracion'];
         $insumo->save();
 
@@ -87,6 +98,19 @@ class InsumosController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $rules = [
+            'nombre' => 'required',
+            'costo' => 'required',
+            'precio' => 'required',
+            'id_tipo' => ['required', 'not_in:0'],
+            'id_unidad' => ['required', 'not_in:0'],
+            'expiracion' => 'required'
+        ];
+        //validamos los campos
+        $this->validate($request, $rules);
+
+        //recibe todos los campos
         $data = $request->all();
         $insumo = \App\Insumo::find($id);
 
