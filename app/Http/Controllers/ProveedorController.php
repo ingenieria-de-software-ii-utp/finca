@@ -38,6 +38,8 @@ class ProveedorController extends Controller
     public function store(Request $request)
     {
         $rules = [
+            'nombre' => 'required',
+            'ruc' => 'required',
             'proveedor' => 'required',
         ];
 
@@ -85,6 +87,8 @@ class ProveedorController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
+            'nombre' => 'required',
+            'ruc' => 'required',
             'proveedor' => 'required',
         ];
 

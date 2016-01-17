@@ -34,6 +34,8 @@
 							<thead>
 								<tr>
 									<th data-field="num">#</th>
+									<th data-field="name">Nombre</th>
+									<th data-field="ruc">RUC</th>									
 									<th data-field="proveedor">Proveedor</th>
 									<th data-field="act">Acción</th>
 								</tr>
@@ -55,6 +57,20 @@
 				<div class="panel-body">
 					{!! Form::open(['route' => 'proveedor.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
 
+						<div class="form-group">
+						    <label class="col-sm-4 control-label">Nombre:</label>
+
+						    <div class="col-sm-6">
+						         {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
+						    </div>
+						</div>
+						<div class="form-group">
+						    <label class="col-sm-4 control-label">RUC:</label>
+
+						    <div class="col-sm-6">
+						         {!! Form::text('ruc', null, ['class' => 'form-control', 'placeholder' => 'RUC']) !!}
+						    </div>
+						</div>
 						<div class="form-group">
 						    <label class="col-sm-4 control-label">Proveedor:</label>
 

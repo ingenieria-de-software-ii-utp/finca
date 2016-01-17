@@ -25,6 +25,20 @@
 					{!! Form::model($proveedor, ['route' => ['proveedor.update', $proveedor->id], 'method' => 'PATCH', 'class' => 'form-horizontal']) !!}
 
 						<div class="form-group">
+						    <label class="col-sm-4 control-label">Nombre:</label>
+
+						    <div class="col-sm-6">
+						         {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
+						    </div>
+						</div>
+						<div class="form-group">
+						    <label class="col-sm-4 control-label">RUC:</label>
+
+						    <div class="col-sm-6">
+						         {!! Form::text('ruc', null, ['class' => 'form-control', 'placeholder' => 'RUC']) !!}
+						    </div>
+						</div>
+						<div class="form-group">
 						    <label class="col-sm-4 control-label">Proveedor:</label>
 
 						    <div class="col-sm-6">

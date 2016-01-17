@@ -88,7 +88,7 @@
     <script src="{{ asset('assets/js/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap-table/bootstrap-table.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap-table/locale/bootstrap-table-es-ES.min.js') }}"></script>
-
+    @yield('scripts')
     <script type="text/javascript">
         var baseurl = '{{ url("/") }}';
 

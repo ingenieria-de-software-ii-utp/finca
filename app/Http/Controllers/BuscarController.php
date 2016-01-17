@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 class BuscarController extends Controller
 {
+    //Funcion para filtrar los INSUMOS en las tablas de BOOTSTRAP-TABLE
     public function getFiltrarinsumos(Request $request){
     	if(!$request->ajax()) abort(403);
 
@@ -40,7 +41,7 @@ class BuscarController extends Controller
 
         return \Response::json(['total' => $cantidad, 'rows' => $datos]);        
     }
-
+    //Funcion para filtrar las TIPO INSUMO en las tablas de BOOTSTRAP-TABLE
     public function getFiltrartipoinsumo(Request $request){
         if(!$request->ajax()) abort(403);
 
@@ -69,7 +70,7 @@ class BuscarController extends Controller
 
         return \Response::json(['total' => $cantidad, 'rows' => $datos]);        
     }
-
+    //Funcion para filtrar las TIPO-RAZAS en las tablas de BOOTSTRAP-TABLE
     public function getFiltrartiporaza(Request $request){
         if(!$request->ajax()) abort(403);
 
@@ -98,7 +99,7 @@ class BuscarController extends Controller
 
         return \Response::json(['total' => $cantidad, 'rows' => $datos]);        
     }
-
+    //Funcion para filtrar las UNIDADES en las tablas de BOOTSTRAP-TABLE
     public function getFiltrarunidades(Request $request){
         if(!$request->ajax()) abort(403);
 
@@ -127,7 +128,7 @@ class BuscarController extends Controller
 
         return \Response::json(['total' => $cantidad, 'rows' => $datos]);        
     }
-
+    //Funcion para filtrar las RAZAS en las tablas de BOOTSTRAP-TABLE
     public function getFiltrarrazas(Request $request){
         if(!$request->ajax()) abort(403);
 
@@ -157,7 +158,7 @@ class BuscarController extends Controller
 
         return \Response::json(['total' => $cantidad, 'rows' => $datos]);        
     }
-
+    //Funcion para filtrar las PROVEEDOR en las tablas de BOOTSTRAP-TABLE
     public function getFiltrarproveedor(Request $request){
         if(!$request->ajax()) abort(403);
 
@@ -166,9 +167,9 @@ class BuscarController extends Controller
         $inputs = $request->all();
 
         if(empty($inputs['search'])){
-            $proveedores = \App\Proveedor::select(\DB::raw('SQL_CALC_FOUND_ROWS *'), 'id', 'proveedor')->where('id', '>', 0)->take($inputs['limit'])->skip($inputs['offset'])->orderBy('created_at', 'ASC')->get();
+            $proveedores = \App\Proveedor::select(\DB::raw('SQL_CALC_FOUND_ROWS *'), 'id', 'nombre', 'ruc', 'proveedor')->where('id', '>', 0)->take($inputs['limit'])->skip($inputs['offset'])->orderBy('created_at', 'ASC')->get();
         }else{
-            $proveedores = \App\Proveedor::select(\DB::raw('SQL_CALC_FOUND_ROWS *'), 'id', 'proveedor')->where('proveedor', 'LIKE', '%'.$inputs["search"].'%')->take($inputs['limit'])->skip($inputs['offset'])->orderBy('created_at', 'ASC')->get();
+            $proveedores = \App\Proveedor::select(\DB::raw('SQL_CALC_FOUND_ROWS *'), 'id', 'nombre', 'ruc', 'proveedor')->where('nombre', 'LIKE', '%'.$inputs["search"].'%')->take($inputs['limit'])->skip($inputs['offset'])->orderBy('created_at', 'ASC')->get();
         }
         $cantidad = \DB::select(\DB::raw("SELECT FOUND_ROWS() AS total;"));
         $cantidad = $cantidad[0]->total;
@@ -179,6 +180,8 @@ class BuscarController extends Controller
             
             $datos[] = [
                 'num' => $n++,
+                'name' => $proveedor->nombre,
+                'ruc' => $proveedor->ruc,
                 'proveedor' => $proveedor->proveedor,
                 'act' => $url
             ];
@@ -186,4 +189,46 @@ class BuscarController extends Controller
 
         return \Response::json(['total' => $cantidad, 'rows' => $datos]);        
     }
+
+    //Funcion para filtrar las compras en las tablas de BOOTSTRAP-TABLE
+    public function getFiltrarcompra(Request $request){
+
+        if(!$request->ajax()) abort(403);
+
+        $datos = array();
+
+        $inputs = $request->all();
+
+        if(empty($inputs['search'])){
+            $compras = \App\Compra::select(\DB::raw('SQL_CALC_FOUND_ROWS *'), 'id')->where('id', '>', 0)->take($inputs['limit'])->skip($inputs['offset'])->orderBy('created_at', 'ASC')->get();
+        }else{
+            $compras = \App\Compra::select(\DB::raw('SQL_CALC_FOUND_ROWS *'), 'id')->where('numfactura', 'LIKE', '%'.$inputs["search"].'%')->take($inputs['limit'])->skip($inputs['offset'])->orderBy('created_at', 'ASC')->get();
+        }
+        $cantidad = \DB::select(\DB::raw("SELECT FOUND_ROWS() AS total;"));
+        $cantidad = $cantidad[0]->total;
+        $n = 1;
+        
+        foreach ($compras as $compra) {
+            $url = '<a href="'.route('compra.edit', $compra->id).'" class="btn btn-xs btn-success"><i class="fa fa-btn fa-edit"></i>Editar</a>';
+            
+            $datos[] = [
+                'num' => $n++,
+                'numfactura' => $compra->numfactura,
+                'proveedor' => \App\Proveedor::where('id', $compra->id_proveedor)->first()->proveedor,
+                'total' =>  number_format($compra->total, 2, '.', ''),
+                'act' => $url
+            ];
+        }
+
+        return \Response::json(['total' => $cantidad, 'rows' => $datos]); 
+    }
+
+    public function getRazas(){
+        if(!\Request::ajax()) abort(403);
+
+        $razas = \App\Raza::select('raza', 'id')->get();
+
+        return $razas;
+    }
+
 }

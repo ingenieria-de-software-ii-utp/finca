@@ -46,4 +46,12 @@ $(function(){
 		sidePagination: 'server',
 		pagination: true
 	});
+
+	$('#tabla-compras').bootstrapTable({
+		url: baseurl+'/buscar/filtrarcompra',
+		height: 300,
+		search: true,
+		sidePagination: 'server',
+		pagination: true
+	});
 });

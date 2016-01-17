@@ -24,29 +24,33 @@
 			@endforeach
 		</div>
 	@endif
-
-	<div class="panel panel-info">
-		<div class="panel-heading">
-			<i class="fa fa-btn fa-filter"></i>Filtrar Insumos
-		</div>
-		<div class="panel-body">
-			<div class="table-responsive">
-				<table id="tabla-insumos">
-					<thead>
-						<tr>
-							<th data-field="num">#</th>
-							<th data-field="name">Nombre</th>
-							<th data-field="cost">Costo</th>
-							<th data-field="price">Precio</th>
-							<th data-field="exp">Expiración</th>
-							<th data-field="act">Acción</th>
-						</tr>
-					</thead>
-				</table>
+	<div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<i class="fa fa-btn fa-filter"></i>Filtrar Insumos
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table id="tabla-insumos">
+							<thead>
+								<tr>
+									<th data-field="num">#</th>
+									<th data-field="name">Nombre</th>
+									<th data-field="cost">Costo</th>
+									<th data-field="price">Precio</th>
+									<th data-field="exp">Expiración</th>
+									<th data-field="act">Acción</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 	</br>
+	
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			Crear Insumos
