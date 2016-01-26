@@ -29,8 +29,8 @@ Route::get('/', function () {
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
+    Route::resource('animales', 'AnimalesController');
     Route::resource('compra', 'ComprasController');
-
     Route::resource('insumo', 'InsumosController');
     Route::resource('raza', 'RazaController');
     Route::resource('tipo-insumo', 'TipoInsumoController');

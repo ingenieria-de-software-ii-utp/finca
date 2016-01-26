@@ -92,6 +92,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'total' => array(
+            'required' => '¡Debe registrar una compra primero!',
+        ),       
     ],
 
     /*
@@ -110,6 +113,11 @@ return [
         'id_unidad' => 'unidad',
         'tipo' => 'tipo de insumo',
         'id_tipo_raza' => 'tipo de raza',
+        'date' => 'Fecha',
+        'numfactura' => 'Número de Factura',
+        'id_proveedor' => 'Proveedor',
+        'id_raza' => 'Raza',
+        'id_estado' => 'Estado',
     ],
 
 ];

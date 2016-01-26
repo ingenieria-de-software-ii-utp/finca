@@ -39,6 +39,25 @@ class ComprasController extends Controller
     {
         $datos = $request->all();
 
+         $req = [
+            'date' => $datos['date'],
+            'numfactura' => $datos['numfactura'],
+            'id_proveedor' => $datos['id_proveedor'],
+            'total' => $datos['total']
+        ];
+
+        $rules = [
+            'date' => 'required',
+            'numfactura' => 'required',
+            'id_proveedor' => ['required', 'not_in:0'],
+            'total' => 'required'
+        ];
+        
+        $v = \Validator::make($req, $rules);        
+        if($v->fails()){
+            return redirect()->back()->withErrors($v);
+        }
+
         $compra = new \App\Compra;
         $compra->numfactura = $datos['numfactura'];
         $compra->id_proveedor = $datos['id_proveedor'];
@@ -99,8 +118,26 @@ class ComprasController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $datos = $request->all();
+        
+        $req = [
+            'date' => $datos['date'],
+            'numfactura' => $datos['numfactura'],
+            'id_proveedor' => $datos['id_proveedor'],
+            'total' => $datos['total']
+        ];
+
+        $rules = [
+            'date' => 'required',
+            'numfactura' => 'required',
+            'id_proveedor' => ['required', 'not_in:0'],
+            'total' => 'required'
+        ];
+        
+        $v = \Validator::make($req, $rules);        
+        if($v->fails()){
+            return redirect()->back()->withErrors($v);
+        }
 
         $compra = \App\Compra::find($id);
         $compra->numfactura = $datos['numfactura'];

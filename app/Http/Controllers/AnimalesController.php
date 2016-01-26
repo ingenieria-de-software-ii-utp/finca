@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class ProveedorController extends Controller
+class AnimalesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        return view('proveedor.create');
+        return view('animales.create');
     }
 
     /**
@@ -37,23 +37,25 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'nombre' => 'required',
-            'ruc' => 'required',
-            'proveedor' => 'required',
+        $rules =[
+            'animal' => 'required',
+            'id_raza' => ['required', 'not_in:0'], 
+            'id_estado' => ['required', 'not_in:0']
         ];
 
         $this->validate($request, $rules);
 
-        $prov = new \App\Proveedor;
-        $prov->nombre = $request->input('nombre');
-        $prov->ruc = $request->input('ruc');
-        $prov->proveedor = $request->input('proveedor');
-        $prov->direccion = $request->input('direccion');
-        $prov->save();
+        $datos = $request->all();
 
-        $request->session()->flash('msj_success', 'Se ha agregado el proveedor: '. $request->input('nombre'));
-        return redirect()->route('proveedor.index');
+        $animal = new \App\Animal;
+        $animal->animal = $datos['animal'];
+        $animal->id_raza = $datos['id_raza'];
+        $animal->descripcion = $datos['descripcion'];
+        $animal->id_estado = $datos['id_estado'];
+        $animal->save();
+
+        $request->session()->flash('msj_success', 'Se ha registrado correctamente el animal: '.$datos['animal']);
+        return redirect()->route('animales.index');
     }
 
     /**
@@ -75,8 +77,8 @@ class ProveedorController extends Controller
      */
     public function edit($id)
     {
-        $proveedor = \App\Proveedor::find($id);
-        return view('proveedor.edit', compact('proveedor'));
+        $animal = \App\Animal::find($id);
+        return view('animales.edit')->with(compact('animal'));
     }
 
     /**
@@ -88,23 +90,25 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = [
-            'nombre' => 'required',
-            'ruc' => 'required',
-            'proveedor' => 'required',
+        $rules =[
+            'animal' => 'required',
+            'id_raza' => ['required', 'not_in:0'], 
+            'id_estado' => ['required', 'not_in:0']
         ];
 
         $this->validate($request, $rules);
 
-        $prov = \App\Proveedor::find($id);
-        $prov->nombre = $request->input('nombre');
-        $prov->ruc = $request->input('ruc');
-        $prov->proveedor = $request->input('proveedor');
-        $prov->direccion = $request->input('direccion');
-        $prov->save();
+        $datos = $request->all();
 
-        $request->session()->flash('msj_success', 'Se ha editado el proveedor: '. $request->input('nombre'));
-        return redirect()->route('proveedor.index');
+        $animal = \App\Animal::find($id);
+        $animal->animal = $datos['animal'];
+        $animal->id_raza = $datos['id_raza'];
+        $animal->descripcion = $datos['descripcion'];
+        $animal->id_estado = $datos['id_estado'];
+        $animal->save();
+
+        $request->session()->flash('msj_success', 'Se ha actualizado correctamente el animal: '.$datos['animal']);
+        return redirect()->route('animales.index');
     }
 
     /**

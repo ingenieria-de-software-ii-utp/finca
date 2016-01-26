@@ -4,6 +4,16 @@
 
 @section('content')
 	
+	@if(count($errors) > 0)
+		<div class="alert alert-danger">
+			Por favor corriga los siguientes errores:
+			@foreach($errors->all() as $error)
+			<ul>
+				<li>{{ $error }}</li>
+			</ul>
+			@endforeach
+		</div>
+	@endif
 	{{-- Muestra el mensaje si existe la variable msj_success --}}
 	@if(Session::has('msj_success'))
 		<div class="alert alert-success alert-dismissible" role="alert">
@@ -34,7 +44,7 @@
 	</div>
 
 	{!! Form::open(['route' => 'compra.store', 'method' => 'POST']) !!}
-		<h3>Datos de Factura</h3>
+		<h3 class="titulo">Datos de Factura</h3>
 		<div class="well well-sm">
 			<div class="row">
 				
@@ -49,7 +59,7 @@
 				</div>
 				<div class="form-group col-sm-4">
 					{!! Form::label('id_proveedor', 'Proveedor:')!!}
-					{!! Form::select('id_proveedor', ['0' => 'Seleccione Proveedor'] + \App\Proveedor::lists('proveedor', 'id')->toArray(), null, ['class' => 'form-control']) !!}
+					{!! Form::select('id_proveedor', ['0' => 'Seleccione Proveedor'] + \App\Proveedor::lists('nombre', 'id')->toArray(), null, ['class' => 'form-control']) !!}
 				</div>
 			</div>
 		</div>
@@ -62,14 +72,14 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-sm-12">
-						<a id="add_row" class="btn btn-default pull-right"><i class="fa fa-btn fa-plus"></i>Agregar Fila</a><br><br>
+						<a id="add_row" class="btn btn-default btn-sm pull-right"><i class="fa fa-btn fa-plus"></i>Agregar Fila</a><br><br>
 					</div>
 				</div>
 				<div class="table-responsive">
 					<table class="table table-collapsed" id="tabla">
 						<thead>
 							<tr class="success">
-								<th>Producto</th>
+								<th>Producto <a href="{{ route('insumo.index') }}" class="btn btn-xs btn-primary pull-right" data-toggle="tooltip" data-placement="top" title="Agregar Insumo"><i class="fa fa-plus"></i></a></th>
 								<th>Cantidad</th>
 								<th>Precio</th>
 								<th>Subtotal</th>
@@ -79,7 +89,7 @@
 						<tbody>
 							<tr>
 								<td>
-									{!! Form::select('id_producto[]', ['0' => 'Seleccione Raza'] + \App\Raza::lists('raza', 'id')->toArray(), null, ['class' => 'form-control', 'id' => 'id_producto0']) !!}
+									{!! Form::select('id_producto[]', ['0' => 'Seleccione Insumo'] + \App\Insumo::lists('nombre', 'id')->toArray(), null, ['class' => 'form-control', 'id' => 'id_producto0']) !!}
 								</td>
 								<td>
 									{!! Form::text('cantidad[]', null, ['class' => 'form-control cantidad', 'id' => 'cantidad0']) !!}

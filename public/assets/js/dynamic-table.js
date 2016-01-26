@@ -3,7 +3,7 @@ $(document).ready(function(){
     $('#add_row').click(function(){
         var newRow = $("<tr>");
         var cols = "";
-        cols += '<td><select name="id_producto[]" id="id_producto'+contador+'" class="form-control"><option value="0">Seleccione Raza</option>'+getRazas(contador)+'</select></td>';
+        cols += '<td><select name="id_producto[]" id="id_producto'+contador+'" class="form-control"><option value="0">Seleccione Insumo</option>'+getInsumos(contador)+'</select></td>';
         
         cols += '<td><input type="text" class="form-control cantidad" name="cantidad[]" id="cantidad'+contador+'"/></td>';
 
@@ -18,10 +18,10 @@ $(document).ready(function(){
         contador++;
     });
     //funcion para obtener las razas y añadirlos al select
-    var getRazas = function(cont){      
-        $.get(baseurl+'/buscar/razas', function(data){
+    var getInsumos = function(cont){      
+        $.get(baseurl+'/buscar/insumos', function(data){
             $.each(data, function(i,e){
-                $('#id_producto'+cont).append('<option value="'+e.id+'">'+e.raza+'</option>');
+                $('#id_producto'+cont).append('<option value="'+e.id+'">'+e.nombre+'</option>');
 
             });
         });        
@@ -82,6 +82,7 @@ $(document).ready(function(){
     });
 });
 
+//Comprueba que el valor es entero
 function esEntero(numero){
     //valido si es numero
    if (isNaN(numero)){
@@ -95,7 +96,7 @@ function esEntero(numero){
         }   
     }
 }
-
+//Comprueba si es numero lo que se escribe
 function esNumero(numero){
     if (isNaN(numero)){
         alert ("Solo ingrese numeros");

@@ -54,4 +54,12 @@ $(function(){
 		sidePagination: 'server',
 		pagination: true
 	});
+
+	$('#tabla-animal').bootstrapTable({
+		url: baseurl+'/buscar/filtraranimal',
+		height: 300,
+		search: true,
+		sidePagination: 'server',
+		pagination: true
+	});
 });

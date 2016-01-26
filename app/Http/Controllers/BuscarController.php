@@ -223,12 +223,43 @@ class BuscarController extends Controller
         return \Response::json(['total' => $cantidad, 'rows' => $datos]); 
     }
 
-    public function getRazas(){
+    //Funcion para filtrar las animales en las tablas de BOOTSTRAP-TABLE
+    public function getFiltraranimal(Request $request){
+
+        if(!$request->ajax()) abort(403);
+
+        $datos = array();
+
+        $inputs = $request->all();
+
+        if(empty($inputs['search'])){
+            $animales = \App\Animal::select(\DB::raw('SQL_CALC_FOUND_ROWS *'), 'id')->where('id', '>', 0)->take($inputs['limit'])->skip($inputs['offset'])->orderBy('created_at', 'ASC')->get();
+        }else{
+            $animales = \App\Animal::select(\DB::raw('SQL_CALC_FOUND_ROWS *'), 'id')->where('animal', 'LIKE', '%'.$inputs["search"].'%')->take($inputs['limit'])->skip($inputs['offset'])->orderBy('created_at', 'ASC')->get();
+        }
+        $cantidad = \DB::select(\DB::raw("SELECT FOUND_ROWS() AS total;"));
+        $cantidad = $cantidad[0]->total;
+        $n = 1;
+        
+        foreach ($animales as $animal) {
+            $url = '<a href="'.route('animales.edit', $animal->id).'" class="btn btn-xs btn-success"><i class="fa fa-btn fa-edit"></i>Editar</a>';
+            
+            $datos[] = [
+                'num' => $n++,
+                'animal' => $animal->animal,
+                'act' => $url
+            ];
+        }
+
+        return \Response::json(['total' => $cantidad, 'rows' => $datos]); 
+    }
+
+    public function getInsumos(){
         if(!\Request::ajax()) abort(403);
 
-        $razas = \App\Raza::select('raza', 'id')->get();
+        $insumos = \App\Insumo::select('nombre', 'id')->get();
 
-        return $razas;
+        return $insumos;
     }
 
 }

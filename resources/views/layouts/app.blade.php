@@ -33,16 +33,23 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Finca
+                <a class="navbar-brand banner" href="{{ url('/') }}">
+                    FINCA
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="spark-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
+                    <li><a href="{{ route('animales.index') }}">Animales</a></li>
                     <li><a href="{{ route('compra.index') }}">Compras</a></li>
                     <li><a href="{{ route('insumo.index') }}">Insumos</a></li>
+                    
+                </ul>
+                
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Authentication Links -->
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenimiento <span class="caret"></span></a>
                       <ul class="dropdown-menu">
@@ -53,11 +60,6 @@
                         <li><a href="{{ route('raza.index') }}">Razas</a></li>
                       </ul>
                     </li>
-                </ul>
-                
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
@@ -98,6 +100,9 @@
             autoclose: true,
             todayHighlight: true
         });
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 </body>
 </html>

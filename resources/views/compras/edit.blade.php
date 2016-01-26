@@ -14,7 +14,7 @@
 
 
 	{!! Form::model($compra, ['route' => ['compra.update', $compra->id], 'method' => 'PATCH']) !!}
-		<h3>Datos de Factura</h3>
+		<h3 class="titulo">Datos de Factura</h3>
 		<div class="well well-sm">
 			<div class="row">
 				
@@ -42,7 +42,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-sm-12">
-						<a id="add_row" class="btn btn-default pull-right"><i class="fa fa-btn fa-plus"></i>Agregar Fila</a><br><br>
+						<a id="add_row" class="btn btn-default btn-sm pull-right"><i class="fa fa-btn fa-plus"></i>Agregar Fila</a><br><br>
 					</div>
 				</div>
 				<div class="table-responsive">
