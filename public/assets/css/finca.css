@@ -2,7 +2,6 @@ body{
 	background: #C54325;
 	font-family: 'Lato', sans-serif;
 }
-
 @media (min-width: 768px){
 	.navbar {
      border-radius: 0px;
